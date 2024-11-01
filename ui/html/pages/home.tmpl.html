@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Unit Converter</title>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<div class="w-full max-w-lg bg-white shadow-md rounded-lg">
+    <div class="flex border-b">
+        <button id="tabLength" class="tab w-1/3 py-3 text-center text-gray-700 border-b-4 border-blue-500">Length</button>
+        <button id="tabWeight" class="tab w-1/3 py-3 text-center text-gray-500 border-b-4">Weight</button>
+        <button id="tabTemperature" class="tab w-1/3 py-3 text-center text-gray-500 border-b-4">Temperature</button>
+    </div>
+
+    <div id="contentLength" class="content p-6">
+        <form action="/length" method="post">
+        <label for="lengthInput" class="block text-gray-700 font-bold mb-2">Enter Value:</label>
+        <input id="lengthInput" name="lengthInput" type="text" class="w-full p-2 border rounded mb-4">
+        <label class="block text-gray-700 font-bold mb-2">From:</label>
+        <select id="lengthFromUnit" name="lengthFromUnit" class="w-full p-2 border rounded mb-4">
+            <option value="m">Meters</option>
+            <option value="cm">Centimeters</option>
+            <option value="km">Kilometers</option>
+        </select>
+        <label class="block text-gray-700 font-bold mb-2">To:</label>
+        <select id="lengthToUnit" name="lengthToUnit" class="w-full p-2 border rounded">
+            <option value="m">Meters</option>
+            <option value="cm">Centimeters</option>
+            <option value="km">Kilometers</option>
+        </select>
+        <button class="convert-btn w-full bg-blue-500 text-white py-2 mt-4 rounded" type="submit">Convert</button>
+            {{if .Result}}
+        <div class="result mt-4 p-2 border rounded bg-gray-100 text-center">Result: <span>{{.Value}} {{.FromUnit}} is {{.Result}} {{.ToUnit}}</span></div>
+            {{end}}
+        </form>
+    </div>
+
+    <div id="contentWeight" class="content p-6 hidden">
+       <form action="/weight" method="post">
+        <label for="weightInput" class="block text-gray-700 font-bold mb-2">Enter Value:</label>
+        <input id="weightInput" name="weightInput" type="number" class="w-full p-2 border rounded mb-4">
+        <label class="block text-gray-700 font-bold mb-2">From:</label>
+        <select id="weightFromUnit" name="weightFromUnit" class="w-full p-2 border rounded mb-4">
+            <option value="kg">Kilograms</option>
+            <option value="g">Grams</option>
+            <option value="lb">Pounds</option>
+        </select>
+        <label class="block text-gray-700 font-bold mb-2">To:</label>
+        <select id="weightToUnit" name="weightToUnit" class="w-full p-2 border rounded">
+            <option value="kg">Kilograms</option>
+            <option value="g">Grams</option>
+            <option value="lb">Pounds</option>
+        </select>
+        <button class="convert-btn w-full bg-blue-500 text-white py-2 mt-4 rounded" type="submit">Convert</button>
+        <div class="result mt-4 p-2 border rounded bg-gray-100 text-center">Result: <span>{{.Value}} {{.FromUnit}} is {{.Result}} {{.ToUnit}}</span></div>
+       </form>
+    </div>
+
+    <div id="contentTemperature" class="content p-6 hidden">
+        <form action="/temp" method="post">
+        <label for="temperatureInput" class="block text-gray-700 font-bold mb-2">Enter Value:</label>
+        <input id="temperatureInput" name="temperatureInput" type="number" class="w-full p-2 border rounded mb-4">
+        <label class="block text-gray-700 font-bold mb-2">From:</label>
+        <select id="temperatureFromUnit" name="temperatureFromUnit" class="w-full p-2 border rounded mb-4">
+            <option value="c">Celsius</option>
+            <option value="f">Fahrenheit</option>
+            <option value="k">Kelvin</option>
+        </select>
+        <label class="block text-gray-700 font-bold mb-2">To:</label>
+        <select id="temperatureToUnit" name="temperatureToUnit" class="w-full p-2 border rounded">
+            <option value="c">Celsius</option>
+            <option value="f">Fahrenheit</option>
+            <option value="k">Kelvin</option>
+        </select>
+        <button class="convert-btn w-full bg-blue-500 text-white py-2 mt-4 rounded" type="submit">Convert</button>
+        <div class="result mt-4 p-2 border rounded bg-gray-100 text-center">Result: <span>{{.Value}} {{.FromUnit}} is {{.Result}} {{.ToUnit}}</span></div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('tabLength').addEventListener('click', () => switchTab('length'));
+    document.getElementById('tabWeight').addEventListener('click', () => switchTab('weight'));
+    document.getElementById('tabTemperature').addEventListener('click', () => switchTab('temperature'));
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach(el => el.classList.remove('text-gray-700', 'border-blue-500'));
+        document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`tab${capitalize(tab)}`).classList.add('text-gray-700', 'border-blue-500');
+        document.getElementById(`content${capitalize(tab)}`).classList.remove('hidden');
+    }
+
+    function capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+
+</script>
+</body>
+</html>
