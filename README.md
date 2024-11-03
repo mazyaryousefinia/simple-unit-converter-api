@@ -2,7 +2,7 @@
 
 A simple, fast, and lightweight web application built with Go that converts between different units of measurement including length, weight, and temperature.
 
-Sample solution for the [[unit-converter](https://roadmap.sh/projects//unit-converter)](https://roadmap.sh/projects/unit-converter) challenge from [roadmap.sh](https://roadmap.sh/).
+Sample solution for the [unit-converter](https://roadmap.sh/projects/unit-converter) challenge from [roadmap.sh](https://roadmap.sh/).
 
 
 
